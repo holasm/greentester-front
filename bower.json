@@ -1,0 +1,17 @@
+{
+  "name": "greentester",
+  "description": "A Vue.js project",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "karicha": "*"
+  }
+}
