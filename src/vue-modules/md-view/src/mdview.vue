@@ -11,19 +11,25 @@ export default {
   props: {
     text: {
       type: String
+    },
+    value: {
+      type: String,
+      required: true
+    },
+    setHtml: {
+      type: Function
     }
   },
 
   data: () => {
     return {
-      compiledHtml: '',
-      compileHtmlMath: ''
+      compiledHtml: ''
     }
   },
 
   computed: {
     compiledMarkdown: function () {
-      var mdText = this.text
+      var mdText = this.value
       if (showdown) {
         showdown.extensions.newline = this.newline
       }
@@ -41,13 +47,11 @@ export default {
     }
   },
 
-  watch: {
-    // highlight the code syntax
-    compiledMarkdown: function (val, old) {
-      var self = this
-      this.$nextTick(() => {
-        self.afterCompileProcess()
-      }) // $nextTick
+  updated () {
+    this.afterCompileProcess() // do the after render processing/beautification
+    if (typeof this.setHtml === 'function') {
+      this.setHtml(this.compiledMarkdown)
+      console.log('called')
     }
   },
 
@@ -60,7 +64,9 @@ export default {
       var i
       var result
       // var tt = window.katex.renderToString(mdText)
-      var reEXP = /(\$\$\$.*?\$\$\$)|(\$\$.*?\$\$)/ig
+      var reEXP = /(\$\$\$(.|\n)*?\$\$\$)|(\$\$(.|\n)*?\$\$)/ig
+      // var reEXP$$Start = /^(?!\\$\$\$)(\$\$\$)/ig
+      // var reEXP$$End = /(\$\$\$(.|\n)*?\$\$\$)|(\$\$.*?\$\$)/ig
       // collect the tokens
       while (!error) {
         ret = new window.Object()
@@ -69,7 +75,6 @@ export default {
           error = true
           break
         }
-        // console.log(result)
         ret.match = result[0]
         ret.start = result.index
         ret.end = ret.start + result[0].length
@@ -87,7 +92,7 @@ export default {
         var el = arr[l]
         var token = mdText.slice(el.start, el.end)
         var katexCompiled = ''
-        if (el.group === 1) { // $$ __ $$
+        if (el.group === 1) { // $$$ __ $$$
           token = token.slice(3).trim(' ')
           token = token.slice(0, token.length - 3).trim(' ')
           try {
@@ -96,7 +101,7 @@ export default {
             console.error(err)
           }
           mdText = this.replaceRange(mdText, el.start, el.end, katexCompiled)
-        } else if (el.group === 2) { // $ __ $
+        } else if (el.group === 3) { // $$ __ $$
           token = token.slice(2).trim(' ')
           token = token.slice(0, token.length - 2).trim(' ')
           try {
@@ -118,12 +123,6 @@ export default {
       var code = this.$el.querySelectorAll('pre code')
       code.forEach(function (el, index) {
         window.hljs.highlightBlock(el)
-      })
-
-      // nested list support khota
-      var br = this.$el.querySelectorAll('ul br, ol br')
-      br.forEach(function (el, index) {
-        el.parentElement.removeChild(el) // remove unnecessary <br> tag
       })
     },
     /* eslint-disable */

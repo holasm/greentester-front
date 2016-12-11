@@ -21,13 +21,13 @@ export default {
     activate: function () {
       this.isActive = true
       var id = this.$el.getAttribute('id')
-      this.$parent.$parent.$emit('activate:tab:head', id)
+      this.$parent.$parent.$emit('activate:tab', id)
     }
   },
   mounted () {
     this.isActive = this.active
     this.id = this.$el.getAttribute('id')
-    this.$on('activate:tab:head', function (id) {
+    this.$on('activate:tab', function (id) {
       if (id !== this.id) {
         this.isActive = false
       }

@@ -9,10 +9,10 @@ export default {
   name: 'tabs',
 
   mounted () {
-    this.$on('activate:tab:head', function (id) {
+    this.$on('activate:tab', function (id) {
       this.$children.forEach((el) => {
         el.$children.forEach((item) => {
-          item.$emit('activate:tab:head', id)
+          item.$emit('activate:tab', id)
         })
       })
     })

@@ -2,8 +2,8 @@
 <hr>
 
 **Now suports equations**
-This is the new math $c \ne x^2 + 2 x + 3$
-$$c = \pm \sqrt{a^2 + b^2}$$
+This is the new math $$c \ne x^2 + 2 x + 3$$
+$$$c = \pm \sqrt{a^2 + b^2}$$$
 
 1.  Item 1
     1. A corollary to the above item.
