@@ -22,7 +22,6 @@ export default {
 
 <style lang=scss>
 .tabs{
-  margin-top: 20px;
   position: relative;
   box-sizing:  border-box;
   height: 100%;

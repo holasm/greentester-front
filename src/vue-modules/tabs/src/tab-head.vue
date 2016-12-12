@@ -51,7 +51,8 @@ export default {
   border-top-right-radius: 3px;
   cursor: pointer;
   bottom: -2px;
-
+  user-select: none;
+  -webkit-user-select: none;
   &:hover{
     background: #f8f8f8;
   }

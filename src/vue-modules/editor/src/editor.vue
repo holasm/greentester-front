@@ -1,8 +1,7 @@
 <template lang=pug>
 .editor-page
-  .row.editor-nav.c-e3
   .editor-wrapper
-    .editor-layout.up-2
+    .editor-layout
       .row.editor-content
         <!--  -->
         .row.md-editor-sided(v-if="type == 'sided'")
@@ -32,7 +31,7 @@
           toolbar(:parent='self')
           md-edit-area(:setValue="setValue")
           br
-          .col.up-2.mb-16.p-16
+          .col.up-2.mb-16.plr-16
             md-view(:value="input")
 </template>
 <script>
@@ -48,7 +47,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'tabbed'
+      default: 'sided'
     }
   },
   data: function () {
@@ -83,11 +82,11 @@ export default {
 <style scoped lang=scss>
 @import "./scss/index";
 .editor-page{
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   height: 100%;
   .editor-wrapper{
-    height: calc(100% - 40px);
+    height: 100%;
     position: relative;
     /* padding: 16px; */
     .editor-layout{
@@ -97,14 +96,11 @@ export default {
     }
   }
 }
-.editor-nav{
-  height: 40px;
-}
 .editor-content{
   width: 100%;
   height: 100%;
   padding: 0;
-  padding-bottom: 16px;
+  /* padding-bottom: 12px; */
   /* background: crimson; */
   .md-editor-tabbed{
     height: 100%;
@@ -128,15 +124,16 @@ export default {
     height: 100%;
     /* background: green; */
     padding-top: 16px;
-    /* padding-bottom: 16px; */
+    padding-bottom: 10px;
     .preview-container{
       height: 100%;
       overflow-y: auto;
-      padding: 5px 16px;
+      padding: 5px;
+
     }
     .editor-container{
-      padding-top: 6px;
       height: 100%;
+      padding: 5px;
       .md-edit-area{
         height: calc(100% - 36px - 16px);
       }

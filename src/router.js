@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 
 // 1. Define route components.
 import App from './App'
-import Editor from './vue-modules/editor'
+import Editor from './vue-modules/editor-page'
 import Qform from './vue-modules/qform'
 
 // 2. Define some routes
