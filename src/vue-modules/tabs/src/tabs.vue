@@ -25,5 +25,6 @@ export default {
   margin-top: 20px;
   position: relative;
   box-sizing:  border-box;
+  height: 100%;
 }
 </style>

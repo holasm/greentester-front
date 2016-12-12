@@ -16,6 +16,6 @@ export default {
   padding: 10px 20px 0;
   display: block;
   overflow: hidden;
-/*   background: red; */
+  height: 42px;
 }
 </style>

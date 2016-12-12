@@ -12,6 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "karicha": "*"
+    "karicha": "*",
+    "Medium.js": "medium.js#^1.0.1"
   }
 }

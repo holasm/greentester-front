@@ -16,11 +16,12 @@ export default {
 }
 </script>
 
-<style lang=scss>
+<style scoped lang=scss>
 .md-html-copy{
   position: absolute;
   right: 0;
-  margin-right: 20px;
+  top: 12;
+  margin-right: 40px;
   border:  1px solid #aaa;
   display: inline-block;
   padding: 2px 10px;

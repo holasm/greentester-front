@@ -1,40 +1,47 @@
 // import _ from 'lodash'
 import localStore from './../../libs/local-store'
+
 module.exports = {
   data: () => {
     return {
-      cursorPos: 0,
+      selStartPos: 0,
+      selEndPos: 0,
       dirty: false,
       scrollPos: 0
     }
   },
   updated () {
     if (this.dirty) {
-      this.setCaretPosition(this.cursorPos)
+      console.log(this.scrollPos)
+      this.setSelection(this.selStartPos, this.selEndPos)
       this.dirty = false
     }
   },
   methods: {
     addHeader: function () {
-      this.addMarker('##', '')
+      this.addMarker('# ', ' #', 'Header', '# '.length, '# '.length + 'Header'.length)
     },
     makeItalic: function () {
-      this.addMarker('*', '*')
+      this.addMarker('*', '*', '')
     },
     addCode: function () {
-      this.addMarker('`', '`')
+      this.addMarker('`', '`', '')
     },
     addComment: function () {
-      this.addMarker('>', '')
+      this.addMarker('>', '', '')
     },
     makeBold: function () {
-      this.addMarker('**', '**')
+      this.addMarker('**', '**', 'Bold', '**'.length, '##'.length + 'Bold'.length)
     },
     addLink: function () {
-      this.addMarker('[', '](url)')
+      this.addMarker('[', '](url)', '')
     },
     addImage: function () {
-      this.addMarker('![Alt text](', 'https://path_to_file.png "Optional title")')
+      this.addMarker('![Alt text](', ' "Optional title")',
+        'https://path_to_file.png',
+        '![Alt text]('.length,
+        '![Alt text]('.length + 'https://path_to_file.png'.length
+      )
     },
     addBulletList: function () {
       this.addMarker('\n- ', '')
@@ -47,7 +54,33 @@ module.exports = {
       this.addMarker('\n' + str, '')
     },
     addHorizontalLine: function () {
-      this.addMarker('\n------\n', '', 7)
+      this.addMarker('\n------\n', '', '')
+    },
+    addEquation: function () {
+      this.addMarker('$$', '$$', '\\Pi = 3.124', '$$'.length, '$$'.length + '\\Pi = 3.124'.length)
+    },
+    addMarker (openingTag, closingTag, midToken, selStartPos, selEndPos) {
+      var endPoints = this.getEndPoints()
+      if (endPoints.start === endPoints.end) {
+        this.input = this.addTagAtStartAndEnd(openingTag, midToken + closingTag, false)
+        if (selStartPos !== undefined || selEndPos !== undefined) {
+          if (selStartPos !== undefined && selEndPos !== undefined) {
+            this.selStartPos = endPoints.start + selStartPos
+            this.selEndPos = endPoints.start + selEndPos
+          } else {
+            console.error('Not enougn args provided')
+          }
+        } else {
+          this.selStartPos = endPoints.start + openingTag.length
+          this.selEndPos = endPoints.start + openingTag.length
+        }
+        this.scrollPos = this.$refs.editArea.scrollTop
+        this.dirty = true
+      } else { // range selected
+        this.input = this.addTagAtStartAndEnd(openingTag, closingTag, true)
+      }
+      this.setValue(this.input)
+      localStore.set('editor-content', this.input)
     },
     addTagAtStartAndEnd (openingTag, closingTag, range) {
       var endPoints = this.getEndPoints()
@@ -67,22 +100,6 @@ module.exports = {
         str.slice(endPoints.end, str.length)
         return ret
       }
-    },
-    addMarker (openingTag, closingTag, cursorPos) {
-      var endPoints = this.getEndPoints()
-      if (endPoints.start === endPoints.end) {
-        this.input = this.addTagAtStartAndEnd(openingTag, closingTag, false)
-        if (cursorPos !== undefined) {
-          this.cursorPos = endPoints.start + cursorPos
-        } else {
-          this.cursorPos = endPoints.start + openingTag.length
-        }
-        this.dirty = true
-      } else { // range selected
-        this.input = this.addTagAtStartAndEnd(openingTag, closingTag, true)
-      }
-      this.setValue(this.input)
-      localStore.set('editor-content', this.input)
     },
     getEndPoints () {
       return {

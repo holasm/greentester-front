@@ -3,6 +3,11 @@ import localStore from './../../libs/local-store'
 module.exports = {
   methods: {
     update: _.debounce(function (e) {
+      // var str = this.$refs.editArea.innerText
+      // this.setValue(str)
+      // this.input = str
+      // localStore.set('editor-content', str)
+
       this.setValue(e.target.value)
       this.input = e.target.value
       // place new doings in undo stack
@@ -15,17 +20,19 @@ module.exports = {
     keyTab: function (e) {
       document.execCommand('insertText', false, '\t')
     },
-    setCaretPosition: function (caretPos) {
+    setSelection: function (selStart, selEnd) {
       var elem = this.$refs.editArea
       if (elem != null) {
         if (elem.createTextRange) {
           var range = elem.createTextRange()
-          range.move('character', caretPos)
+          range.move('character', selStart)
           range.select()
+          range.move('character', selEnd)
         } else {
           if (elem.selectionStart) {
             elem.focus()
-            elem.setSelectionRange(caretPos, caretPos)
+            elem.scrollTop = this.scrollPos
+            elem.setSelectionRange(selStart, selEnd)
           } else {
             elem.focus()
           }

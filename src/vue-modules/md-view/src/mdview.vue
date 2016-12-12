@@ -51,7 +51,6 @@ export default {
     this.afterCompileProcess() // do the after render processing/beautification
     if (typeof this.setHtml === 'function') {
       this.setHtml(this.compiledMarkdown)
-      console.log('called')
     }
   },
 
