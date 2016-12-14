@@ -1,0 +1,25 @@
+.row.p-6
+  .col.up-2.p-24
+    h3.pl-16 Forms
+    hr
+    tabs
+      tab-heads(slot="heads")
+        tab-head#1(active=true) Forms
+        tab-head#2 Code
+      tab-items(slot="items")
+        tab-item#1.editor-container(active=true)
+          br
+          .vms-form
+            .row
+              .col.md-6
+                .form-group
+                  label First name
+                  input.form-control(placeholder="First name")
+              .col.md-6
+                .form-group
+                  label Last name
+                  input.form-control(placeholder="Last name")
+              .col.md-6
+                .form-group
+                  label Last name
+                  input.form-control(placeholder="Last name")

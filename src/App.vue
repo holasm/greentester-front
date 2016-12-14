@@ -24,6 +24,6 @@ export default {
 
 <style lang=scss>
 /* @import "./../node_modules/bourbon"; */
-@import "./../static/bower_components/karicha/styles/css/main.css";
+/* @import "./../static/bower_components/karicha/styles/css/main.css"; */
 
 </style>

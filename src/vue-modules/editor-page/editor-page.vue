@@ -1,9 +1,9 @@
 <template lang=pug>
 .soso
   .nav
-  .row.h-100p.no-plr
-    .col.editor-container.no-plr.md-8.md-o-2
-      editor(type='sided', ref="editor")
+  .row.h-100p
+    .col.editor-container.sm-12
+      editor(type='tabbed', ref="editor")
 </template>
 
 <script>
@@ -26,6 +26,10 @@ export default {
   }
   .editor-container{
     height: calc(100% - 40px);
+    textarea {
+      resize: none;
+      background: red;
+    }
   }
 }
 .h-100p{

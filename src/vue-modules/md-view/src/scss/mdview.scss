@@ -92,7 +92,17 @@
         content: 'php';
         @extend .before-code;
       }
-    }    
+    }
+    code.normal{
+      display: block;
+      padding: 0px;
+      background: red;
+      padding: 8px 12px 8px;
+      background: #f8f8f8;
+      line-height: 32px;
+      font-family: Liberation Mono;
+      font-size: 0.9em;
+    }
   }
   p code {
     background: #f7f7f7;
@@ -103,6 +113,7 @@
     // word-spacing: 0.2em;
     font-family: Liberation Mono;
   }
+
   $list-line-height: 30px;
   /* lists */
   ol{

@@ -16,15 +16,15 @@
           tab-heads(slot="heads")
             tab-head#1(active=true) Editor
             tab-head#2 Preview
-            tab-head#3 Html
+            tab-head#3(v-if="showHtml") Html
           tab-items(slot="items")
             tab-item#1.editor-container(active=true)
               toolbar(:parent='self')
               md-edit-area(:setValue="setValue", ref="mdEditArea")
             tab-item#2.overflow-scroll
-              .col.md-8.md-o-2.up-2.plr-24
+              .col
                 md-view(:value="input", :setHtml="setHtml")
-            tab-item#3.overflow-scroll
+            tab-item#3.overflow-scroll(v-if="showHtml")
               md-html(:html="html")
         <!-- top-down editor -->
         .row.md-editor-top-down(v-if="type == 'top-down'")
@@ -48,6 +48,14 @@ export default {
     type: {
       type: String,
       default: 'sided'
+    },
+    previewClass: {
+      type: String,
+      default: ''
+    },
+    showHtml: {
+      type: Boolean,
+      default: false
     }
   },
   data: function () {
@@ -81,6 +89,36 @@ export default {
 
 <style scoped lang=scss>
 @import "./scss/index";
+.tabs{
+    li{
+      height: 100%;
+      &.tab-head{
+        color: black;
+        border: none;
+        &.active{
+          border-bottom: 4px solid #f93195;
+          color: #f93195;
+        }
+      }
+    }
+  ul{
+    &.tab-items{
+      /* height: 100%;  */
+      border-top: none;
+      &.scroll-overflow-top{
+        box-shadow: inset 0 3px 2px -2px rgba(200,200,200,0.5);
+      }
+      &.scroll-overflow-bottom{
+        box-shadow: inset 0 -3px 2px -2px rgba(200,200,200,0.5);
+      }
+      &.scroll-overflow-top-bottom{
+        box-shadow: inset 0 3px 2px -2px rgba(200,200,200,0.5) inset 0 -3px 2px -2px rgba(200,200,200,0.5);
+      }
+
+    }
+    border-bottom: none;
+  }
+}
 .editor-page{
   /* position: fixed; */
   width: 100%;
@@ -104,7 +142,7 @@ export default {
   /* background: crimson; */
   .md-editor-tabbed{
     height: 100%;
-    padding: 0 16px;
+    /* padding: 0 16px; */
     .tab-items {
       .tab-item{
         padding: 18px 0 18px;
@@ -129,7 +167,7 @@ export default {
       height: 100%;
       overflow-y: auto;
       padding: 5px;
-
+      /* box-shadow: inset 0px -2px 4px 1px #aaa; */
     }
     .editor-container{
       height: 100%;

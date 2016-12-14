@@ -51,7 +51,7 @@ module.exports = {
         '| ------------- | ------------- |\n' +
         '| Content Cell  | Content Cell  |\n' +
         '| Content Cell  | Content Cell  |\n'
-      this.addMarker('\n' + str, '')
+      this.addMarker('\n' + str, '', '')
     },
     addHorizontalLine: function () {
       this.addMarker('\n------\n', '', '')

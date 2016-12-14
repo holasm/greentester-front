@@ -30,9 +30,18 @@ export default {
   computed: {
     compiledMarkdown: function () {
       var mdText = this.value
-      if (showdown) {
-        showdown.extensions.newline = this.newline
-      }
+      // if (showdown) {
+      //   showdown.extensions.newline = this.newline
+      // }
+
+      /*
+       * Put the compilation in another file and run using web workers
+       * Proposal:
+       *  Try to do selective compilatin. compile atmost 100 line at once.
+       *  create bucket of atmost 100 lines and compile them and catch them
+       *  resue the catched text. recompile the range between which modification is done
+       */
+
       this.converter = this.converter || new showdown.Converter()
       this.converter.setFlavor('github')
       // compile markdown and math equation separately
@@ -123,19 +132,19 @@ export default {
       code.forEach(function (el, index) {
         window.hljs.highlightBlock(el)
       })
-    },
+    }
     /* eslint-disable */
-    newline: function () {
-      return [{
-        type: 'lang',
-        filter: function (text) {
-          return text.replace(/^( *(\d+\.  {1,4}|[\w\<\'\">\-*+])[^\n]*)\n{1}(?!\n| *\d+\. {1,4}| *[-*+] +|#|$)/gm,
-            function (e) {
-                return e.trim() + "  \n"
-            })
-        }
-      }]
-    } // ./newline
+    // newline: function () {
+    //   return [{
+    //     type: 'lang',
+    //     filter: function (text) {
+    //       return text.replace(/^( *(\d+\.  {1,4}|[\w\<\'\">\-*+])[^\n]*)\n{1}(?!\n| *\d+\. {1,4}| *[-*+] +|#|$)/gm,
+    //         function (e) {
+    //             return e.trim() + "  \n"
+    //         })
+    //     }
+    //   }]
+    // } // ./newline
     /* eslint-enable */
   },
 
