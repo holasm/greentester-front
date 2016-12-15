@@ -1,39 +1,35 @@
 <template lang=pug>
- .dropdown
+ .dropdown(v-bind:class="{active: isActive}")
   .head(@click="toogleActive") {{ text }}
     i.glyphicon.glyphicon-chevron-down
-  ul.dropdown-items.up-2(v-if="active")
+  ul.dropdown-items.up-2(v-if="isActive")
     span(@click="toogleActive")
       slot
 </template>
 
 <script>
+import activate from './../../../../v-mixins/activate'
 export default {
   name: 'dropdown',
+  mixins: [ activate ],
   props: {
     text: String
-  },
-  data: function () {
-    return {
-      active: false
-    }
-  },
-  methods: {
-    toogleActive: function (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      this.active = !this.active
-    },
-    activate: function (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      this.active = true
-    }
   },
   mounted () {
     var self = this
     window.addEventListener('click', function (e) {
-      self.active = false
+      self.isActive = false
+      self.$emit('deactivated')
+    })
+    this.$on('activated', function () {
+      if (this.hasClass(this.$el.parentElement, 'link')) {
+        this.addClass(this.$el.parentElement, 'active')
+      }
+    })
+    this.$on('deactivated', function () {
+      if (this.hasClass(this.$el.parentElement, 'link')) {
+        this.removeClass(this.$el.parentElement, 'active')
+      }
     })
   }
 }

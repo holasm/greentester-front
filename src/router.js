@@ -14,7 +14,8 @@ const routes = [
   { path: '/', component: App },
   { path: '/editor', component: Editor },
   { path: '/qform', component: Qform },
-  { path: '/karicha', component: karicha }
+  { path: '/karicha', component: karicha },
+  { path: '/karicha/:id', component: karicha }
 ]
 
 // 3. Create the router instance and pass the `routes` option

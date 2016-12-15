@@ -17,6 +17,7 @@
             tab-head#1(active=true) Editor
             tab-head#2 Preview
             tab-head#3(v-if="showHtml") Html
+            slot(name="tab-toolbar")
           tab-items(slot="items")
             tab-item#1.editor-container(active=true)
               toolbar(:parent='self')
@@ -91,13 +92,16 @@ export default {
 @import "./scss/index";
 .tabs{
     li{
-      height: 100%;
       &.tab-head{
         color: black;
         border: none;
+        height: 100%;
         &.active{
           border-bottom: 4px solid #f93195;
           color: #f93195;
+        }
+        &.tab-item{
+          height: 100%;
         }
       }
     }

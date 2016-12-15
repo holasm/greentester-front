@@ -1,16 +1,24 @@
 .nav.up-2
-    .layout
-      .hambarger.sm-hide-up
-        i.glyphicon.glyphicon-align-justify
+  .layout
+    .hambarger.sm-hide-up
+      i.glyphicon.glyphicon-align-justify
+    router-link(to="/editor") 
       .brand Karicha
-      .links.md-hide-down
-        ul.link-group
-          li.link
-            i.glyphicon.glyphicon-search
+    .links.md-hide-down
+      ul.link-group
+        li.link
+          i.glyphicon.glyphicon-search
+        router-link(to="/editor") 
           li.link Home
-          li.link All
-          li.link Category
-      .links.sm-hide-up
-        ul.link-group
-          li.link
-            i.glyphicon.glyphicon-search
+        li.link.dropdown
+          dropdown(text="Category")
+            dropdown-item  item 2
+            dropdown-item  item 1
+            dropdown-item  item 2
+            dropdown-item  item 2
+            dropdown-item  item 2
+        li.link All
+    .links.sm-hide-up
+      ul.link-group
+        li.link
+          i.glyphicon.glyphicon-search

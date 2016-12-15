@@ -10,12 +10,6 @@ import question from './vue-modules/question'
 export default {
   name: 'app',
 
-  mounted () {
-    window.MathJax.Hub.Config({
-      tex2jax: { inlineMath: [ [ '$', '$' ], [ '\\(', '\\)' ] ] }
-    })
-  },
-
   components: {
     question
   }

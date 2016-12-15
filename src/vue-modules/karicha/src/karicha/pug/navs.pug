@@ -2,9 +2,12 @@
   .layout
     .hambarger.sm-hide-up
       i.glyphicon.glyphicon-align-justify
-    .brand Karicha
+    router-link(to="/editor") 
+      .brand Karicha
     .links.md-hide-down
       ul.link-group
+        li.link
+          i.glyphicon.glyphicon-search
         li.link.dropdown
           dropdown(text="Lists")
             dropdown-item  item 2

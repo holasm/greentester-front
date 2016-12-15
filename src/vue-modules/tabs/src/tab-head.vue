@@ -28,8 +28,10 @@ export default {
     this.isActive = this.active
     this.id = this.$el.getAttribute('id')
     this.$on('activate:tab', function (id) {
-      if (id !== this.id) {
+      if (window.String(id).trim() !== this.id) {
         this.isActive = false
+      } else {
+        this.isActive = true
       }
     })
   }
@@ -55,6 +57,10 @@ export default {
   -webkit-user-select: none;
   &:hover{
     background: #f8f8f8;
+  }
+  a{
+    color: black;
+    text-decoration: none;
   }
   &.active{
     position: relative;

@@ -9,9 +9,6 @@ export default {
   name: 'mdview',
 
   props: {
-    text: {
-      type: String
-    },
     value: {
       type: String,
       required: true
